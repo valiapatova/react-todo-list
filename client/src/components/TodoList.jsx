@@ -1,17 +1,25 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import TodoItem from "./TodoItem";
 
 export default function TodoList() {
+
+    const[todos, setTodos] = useState([]);
 
     useEffect(()=>{
         const baseUrl=`http://localhost:3030/jsonstore/todos`;
         fetch(baseUrl)
         .then(response=>response.json())
         .then(data=>{
-            console.log(data)
+            setTodos(Object.values(data));
+            console.log(todos);
         })
         .catch(err=>console.log(err))
     },[]);
+
+    const changeStatusHandler=(todoId)=>{
+        setTodos(state=>state.map(todo => todo._id === todoId ? { ...todo, isCompleted: !todo.isCompleted } : todo));
+
+    }
 
         return (
         // Section container 
@@ -42,7 +50,21 @@ export default function TodoList() {
                     </thead>
                     <tbody>
 
-                        <TodoItem/>
+                        {
+                            todos.map(todo=>(
+
+                              <TodoItem
+                                   key={todo._id}
+                                   _id={todo._id}
+                                   text={todo.text}
+                                   isCompleted={todo.isCompleted}
+                                   changeStatusHandler={changeStatusHandler}
+                              />         
+
+
+                        ))} 
+
+                                 
 
                        
                     </tbody>
