@@ -1,5 +1,19 @@
+import { useEffect,useState } from "react";
+
+useEffect(()=>{
+    const baseUrl=`http://localhost:3030/jsonstore/todos`
+    fetch(baseUrl)
+    .then((response)=>response.json())
+    .then((data)=>{
+        console.log(data)
+    })
+    .catch((err)=>console.log(err))
+},[]);
+
+
+
 export default function TodoList() {
-    return (
+        return (
         // Section container 
         <section className="todo-list-container">
             <h1>Todo Task</h1>
