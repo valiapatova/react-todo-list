@@ -1,18 +1,18 @@
 import { useEffect,useState } from "react";
-
-useEffect(()=>{
-    const baseUrl=`http://localhost:3030/jsonstore/todos`
-    fetch(baseUrl)
-    .then((response)=>response.json())
-    .then((data)=>{
-        console.log(data)
-    })
-    .catch((err)=>console.log(err))
-},[]);
-
-
+import TodoItem from "./TodoItem";
 
 export default function TodoList() {
+
+    useEffect(()=>{
+        const baseUrl=`http://localhost:3030/jsonstore/todos`;
+        fetch(baseUrl)
+        .then(response=>response.json())
+        .then(data=>{
+            console.log(data)
+        })
+        .catch(err=>console.log(err))
+    },[]);
+
         return (
         // Section container 
         <section className="todo-list-container">
@@ -42,8 +42,7 @@ export default function TodoList() {
                     </thead>
                     <tbody>
 
-                        {/* Todo item */}
-                        <TodoTtem/>
+                        <TodoItem/>
 
                        
                     </tbody>
